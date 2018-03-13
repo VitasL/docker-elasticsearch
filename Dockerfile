@@ -4,8 +4,12 @@ MAINTAINER bingo <bingov5@icloud.com>
 
 ENV ES_JAVA_OPTS "-Xmx256m -Xms256m"
 
-ADD https://github.com/bingozb/docker-elasticsearch/blob/master/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+ADD https://raw.githubusercontent.com/bingozb/docker-elasticsearch/master/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
-RUN chmod -R 0775 /usr/share/elasticsearch/config
+USER root
+
+RUN chown -R elasticsearch:root /usr/share/elasticsearch/config && cat /usr/share/elasticsearch/config/elasticsearch.yml
+
+USER elasticsearch
 
 EXPOSE 9200 9300
